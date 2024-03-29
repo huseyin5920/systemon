@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.md": "markdown",
+        "in.h": "c",
+        "libpq-fe.h": "c"
+    }
+}
