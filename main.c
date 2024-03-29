@@ -2,12 +2,8 @@
 #include <stdlib.h>
 #include <postgresql/libpq-fe.h>
 #include <netinet/in.h>
+#include "enums/enums.h"
 
-typedef enum serverInfoGroupEnum{
-    rocky_linux,
-    ubuntu,
-    windows
-}ServerInfoGroupEnum;
 
 typedef struct serverInfoStruct
 {
@@ -29,7 +25,7 @@ typedef struct ip
 
 int main(){
 
-    ServerInfoGroupEnum huseyin = windows;
+    ServerInfoGroupEnum huseyin = ubuntu;
     printf("%d", huseyin );
 
 
