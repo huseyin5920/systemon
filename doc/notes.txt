@@ -1,0 +1,1 @@
+# c kütüphaneleri /usr/include içerisindedir.

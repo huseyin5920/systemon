@@ -9,4 +9,12 @@ typedef enum serverInfoGroupEnum{
     windows
 }ServerInfoGroupEnum;
 
+
+typedef enum menu{
+    SUNUCU_LISTELE = 1,
+    SUNUCU_EKLE,
+    SUNUCU_CIKAR,
+    PROG_CIKIS
+}Menu;
+
 #endif
