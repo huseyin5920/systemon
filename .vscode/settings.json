@@ -5,7 +5,8 @@
         "libpq-fe.h": "c",
         "stdio.h": "c",
         "enums.h": "c",
-        "structs.h": "c"
+        "structs.h": "c",
+        "stdarg.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
