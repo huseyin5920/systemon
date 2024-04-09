@@ -15,34 +15,23 @@ void print_color(const char *color_code, const char *format, ...);
 int main(){
     //TODO: kritik değişkenler .env dosyasından alınacak.
     PGconn *conn = PQconnectdb("user=username password=password dbname=systemon host=localhost port=5432");
+    ConnStatusType status = PQstatus(conn);
 
-    print_color(RED, "Aaaaaaaaaaaaaaaaaaaaa\n");
 
-    printf("\033[0;31mBu metin kirmizi renkte.\033[0m\n");
+    if (status == CONNECTION_BAD) {
+        print_color(RED, "Connection to database failed %s\n", PQerrorMessage(conn));
+        PQfinish(conn);
+        exit(EXIT_FAILURE);
+    }  
+    if (status == CONNECTION_OK) {
+        print_color(GREEN, "Connection to database okey %s\n", PQerrorMessage(conn));
+    }      
 
-    // Yeşil renkte bir metin yazdırma
-    printf("\033[0;32mBu metin yesil renkte.\033[0m\n");
-
-    // Mavi renkte bir metin yazdırma
-    printf("\033[0;34mBu metin mavi renkte.\033[0m\n");
 
     // ConnStatusType status = PQstatus(conn);
-    
-    print_color(BLUE, "Bağlantı Durumu: %d\n", PQstatus(conn));
-    printf("Bağlantı Durumu: %s\n", PQresStatus(PQstatus(conn)));
 
 
 
-    // if (PQstatus(conn) == CONNECTION_BAD) {
-    //     fprintf(stderr, "Connection to database failed %s\n",
-    //             PQerrorMessage(conn));
-    //     PQfinish(conn);
-    //     exit(EXIT_FAILURE);
-    // }  
-    // if (PQstatus(conn) == CONNECTION_OK) {
-    //     fprintf(stderr, "Connection to database okey %s\n",
-    //             PQerrorMessage(conn));
-    // }      
 
     // PGresult *res = PQexec(conn, "DROP TABLE IF EXISTS school");
 
