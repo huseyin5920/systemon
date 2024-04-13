@@ -6,7 +6,8 @@
         "stdio.h": "c",
         "enums.h": "c",
         "structs.h": "c",
-        "stdarg.h": "c"
+        "stdarg.h": "c",
+        "postgres_ext.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

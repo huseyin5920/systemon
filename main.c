@@ -12,25 +12,54 @@ ServerInfoGroupEnum serverInfoGroupEnum = rocky_linux;
 ServerInfoStruct serverInfoStruct;
 void print_color(const char *color_code, const char *format, ...);
 
+
+
 int main(){
     //TODO: kritik değişkenler .env dosyasından alınacak.
-    PGconn *conn = PQconnectdb("user=username password=password dbname=systemon host=localhost port=5432");
-    ConnStatusType status = PQstatus(conn);
+    PGconn *conn;
+    ConnStatusType conn_status;
+    ExecStatusType status;
+    PGresult *res;
+    const char *status_str;
+    
 
+    conn = PQconnectdb("user=username password=password dbname=systemon host=localhost port=5432");
+    conn_status = PQstatus(conn);
 
-    if (status == CONNECTION_BAD) {
+    if (conn_status == CONNECTION_BAD) {
         print_color(RED, "Connection to database failed %s\n", PQerrorMessage(conn));
         PQfinish(conn);
         exit(EXIT_FAILURE);
     }  
-    if (status == CONNECTION_OK) {
+    if (conn_status == CONNECTION_OK) {
         print_color(GREEN, "Connection to database okey %s\n", PQerrorMessage(conn));
     }      
 
 
-    // ConnStatusType status = PQstatus(conn);
 
+    res = PQexec(conn, "CREATE TABLE hars(Id INTEGER PRIMARY KEY," \
+                        "Name VARCHAR(20), \
+                        Price INT)");
 
+    status = PQresultStatus(res);
+
+    if (status == PGRES_COMMAND_OK)
+    {
+        status_str = PQresStatus(status); // PQresStatus fonksiyonunun döndürdüğü metni bir const char * değişkenine atama
+        print_color(YELLOW, "Sorgu durumu: %s --> ", status_str);
+        const char *error_message = PQerrorMessage(conn);
+        print_color(GREEN, "BAŞARILI %s\n", error_message);
+        PQclear(res);
+    }
+    if (status != PGRES_COMMAND_OK)
+    {
+        status_str = PQresStatus(status); // PQresStatus fonksiyonunun döndürdüğü metni bir const char * değişkenine atama
+        const char *error_message = PQerrorMessage(conn);
+        print_color(YELLOW, "Sorgu durumu: %s --> ", status_str);
+        print_color(RED, "HATA: %s\n", error_message);
+    }  
+
+    
 
 
     // PGresult *res = PQexec(conn, "DROP TABLE IF EXISTS school");
@@ -42,7 +71,7 @@ int main(){
     // }
     
 
-    // PQfinish(conn);
+    PQfinish(conn);
 
     // int islem;
 
