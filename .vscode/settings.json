@@ -7,7 +7,9 @@
         "enums.h": "c",
         "structs.h": "c",
         "stdarg.h": "c",
-        "postgres_ext.h": "c"
+        "postgres_ext.h": "c",
+        "ctype.h": "c",
+        "string.h": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }
